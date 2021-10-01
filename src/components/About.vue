@@ -24,7 +24,8 @@ export default {
       var date = new Date()
       var minute = date.getMinutes()
       var hour = date.getHours()
-      this.saveText.push({text: this.text, date: `${hour}:${minute}`})
+      this.saveTexts.push({text: this.text, date: `${hour}:${minute}`})
+      this.text = ''
     }
   }
 }
