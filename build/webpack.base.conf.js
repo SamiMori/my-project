@@ -3,7 +3,8 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
+const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins')
+const SentryWebpackPlugin = require('@sentry/webpack-plugin')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -27,6 +28,7 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
+    sourceMapFilename: '[name].js.map',
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
@@ -88,5 +90,19 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  plugins: [
+    new BugsnagSourceMapUploaderPlugin({
+      apiKey: '76745d92f5b92e373965a036c0ff9075',
+      appVersion: '1.2.3'
+    }),
+    new SentryWebpackPlugin({
+      authToken: '30fcd5d2dc194bda9d7f88e6317a5fc566ea4d56827e412e977c8c819bd047ba',
+      org: 'company-teste',
+      project: 'company-teste',
+      include: '.',
+      ignore: ['node_modules', 'webpack.config.js'],
+      configFile: 'sentry.properties'
+    })
+  ]
 }

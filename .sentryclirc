@@ -1,0 +1,5 @@
+[auth]
+token=30fcd5d2dc194bda9d7f88e6317a5fc566ea4d56827e412e977c8c819bd047ba
+[defaults]
+org = company-teste
+project = company-teste
